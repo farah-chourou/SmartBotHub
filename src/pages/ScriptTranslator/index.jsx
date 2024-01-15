@@ -78,7 +78,7 @@ function Index() {
       console.log(response.data.google.generated_text);
       setTranslatedScript(response.data.google.generated_text);
     } catch (error) {
-      console.error("Error translating code:", error);
+      console.error("Error transdlating code:", error);
     }
   };
 
