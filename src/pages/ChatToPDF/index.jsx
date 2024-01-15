@@ -116,7 +116,7 @@ function index() {
             <input type="file" onChange={handleFileChange} />
             <Button
               variant="contained"
-              color="secondary"
+              sx={{ marginTop: 2, backgroundColor: "#F15A29" }}
               onClick={handleUploadFile}
               disabled={loadingUpload}
             >
@@ -170,9 +170,14 @@ function index() {
                 onChange={handleQueryChange}
                 sx={{ marginRight: 2, backgroundColor: "#666", color: "#fff" }}
               />
-              <button onClick={handleChatbotQuery} disabled={loading}>
+              <Button
+                onClick={handleChatbotQuery}
+                disabled={loading}
+                variant="contained"
+                sx={{ backgroundColor: "#F15A29" }}
+              >
                 {loading ? "Loading..." : "Ask"}
-              </button>
+              </Button>
             </div>
           </Paper>
         </Grid>

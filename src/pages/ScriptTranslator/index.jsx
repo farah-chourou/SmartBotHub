@@ -10,6 +10,7 @@ import {
   FormControl,
   InputLabel,
   TextField,
+  Box,
 } from "@mui/material";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
@@ -53,11 +54,6 @@ function Index() {
 
   const handleTranslate = async () => {
     try {
-      console.log(sourceScript);
-      console.log(
-        `Translate this code   build with   ${sourceLanguage} to  code with ${translatedLanguage}`
-      );
-
       const response = await axios.post(
         "https://api.edenai.run/v2/text/code_generation",
         {
@@ -91,35 +87,40 @@ function Index() {
       }}
     >
       <Grid container spacing={2}>
-        {/* First Grid for Source Language and Script Input */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: 2, backgroundColor: "#444" }}>
-            <Typography variant="h6" gutterBottom sx={{ color: "#fff" }}>
+          <Typography
+            variant="h5"
+            sx={{ color: "#fff", textAlign: "center" }}
+            p={3}
+          >
+            Input
+          </Typography>
+          <Box sx={{ color: "#fff", marginBottom: 1 }}>
+            <Typography variant="p" gutterBottom>
               Select Source Language
             </Typography>
-
-            <FormControl fullWidth sx={{ marginBottom: 2 }}>
-              <InputLabel id="source-language-select-label">
-                Source Language
-              </InputLabel>
-              <Select
-                labelId="source-language-select-label"
-                id="source-language-select"
-                value={sourceLanguage}
-                label="Source Language"
-                onChange={handleSourceLanguageChange}
-              >
-                {languageOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
+          </Box>
+          <FormControl fullWidth sx={{ marginBottom: 2 }}>
+            <Select
+              labelId="source-language-select-label"
+              id="source-language-select"
+              value={sourceLanguage}
+              label="Source Language"
+              onChange={handleSourceLanguageChange}
+              sx={{ backgroundColor: "#333333", color: "white" }}
+            >
+              {languageOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Paper elevation={3} sx={{ padding: 2, backgroundColor: "#1E1E1E" }}>
             {/* Code Editor for Source Language */}
             <Editor
               height="40vh"
+              theme="vs-dark"
               language={sourceLanguage}
               value={sourceScript}
               options={{
@@ -132,9 +133,8 @@ function Index() {
             {/* Translate Button */}
             <Button
               variant="contained"
-              color="primary"
               onClick={handleTranslate}
-              sx={{ marginTop: 2 }}
+              sx={{ marginTop: 2, backgroundColor: "#F15A29" }}
             >
               Translate
             </Button>
@@ -142,38 +142,40 @@ function Index() {
         </Grid>
         {/* Second Grid for Translated Language and Script Display */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: 2, backgroundColor: "#444" }}>
-            <Typography variant="h6" gutterBottom sx={{ color: "#fff" }}>
+          <Typography
+            variant="h5"
+            sx={{ color: "#fff", textAlign: "center" }}
+            p={3}
+          >
+            Output
+          </Typography>
+          <Box sx={{ color: "#fff", marginBottom: 1 }}>
+            <Typography variant="p" gutterBottom>
               Select Translated Language
             </Typography>
+          </Box>
+          <FormControl fullWidth sx={{ marginBottom: 2 }}>
+            <Select
+              labelId="translated-language-select-label"
+              id="translated-language-select"
+              value={translatedLanguage}
+              label="Translated Language"
+              onChange={handleTranslatedLanguageChange}
+              sx={{ backgroundColor: "#333333", color: "white" }}
+            >
+              {languageOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-            <FormControl fullWidth sx={{ marginBottom: 2 }}>
-              <InputLabel id="translated-language-select-label">
-                Translated Language
-              </InputLabel>
-              <Select
-                labelId="translated-language-select-label"
-                id="translated-language-select"
-                value={translatedLanguage}
-                label="Translated Language"
-                onChange={handleTranslatedLanguageChange}
-              >
-                {languageOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {/* Translated Script Display */}
-            <Typography variant="body1" sx={{ color: "#fff" }}>
-              Translated Script: {translatedScript}
-            </Typography>
-
+          <Paper elevation={3} sx={{ padding: 2, backgroundColor: "#1E1E1E" }}>
             {/* Code Editor for Translated Language */}
             <Editor
               height="40vh"
+              theme="vs-dark"
               language={translatedLanguage}
               value={translatedScript}
               options={{
