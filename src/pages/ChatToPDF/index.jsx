@@ -170,14 +170,9 @@ function index() {
                 onChange={handleQueryChange}
                 sx={{ marginRight: 2, backgroundColor: "#666", color: "#fff" }}
               />
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleChatbotQuery}
-                disabled={loading}
-              >
+              <button onClick={handleChatbotQuery} disabled={loading}>
                 {loading ? "Loading..." : "Ask"}
-              </Button>
+              </button>
             </div>
           </Paper>
         </Grid>
